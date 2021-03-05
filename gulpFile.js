@@ -3,15 +3,27 @@ const DEL = require('del');
 const GULP = require('gulp');
 const RENAME = require('gulp-rename');
 
-GULP.task('dev', function() {
+GULP.task('dev:lib', function() {
     NODEMON({
         script: 'src/index.js',
         ext: '*',
-        watch: 'src/',
-        ignore: ['dist/']
+        watch: 'src/lib',
+        ignore: ['']
     })
     .on('restart', function() {
-        console.log('restart');
+        console.log('LIB RESTART');
+    })
+});
+
+GULP.task('dev:client', function() {
+    NODEMON({
+        script: 'src/client/index.js',
+        ext: '*',
+        watch: 'src/client',
+        ignore: ['']
+    })
+    .on('restart', function() {
+        console.log('CLIENT RESTART');
     })
 });
 

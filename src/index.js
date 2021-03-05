@@ -4,4 +4,4 @@ const DEBUG = require('debug')('APP');
 const CONFIGURATION = require('./lib/configuration');
 
 require('./lib/services');
-require('./client')("http://localhost:" + process.env.APP_PORT);
+// require('./client')("http://localhost:" + process.env.APP_PORT);
