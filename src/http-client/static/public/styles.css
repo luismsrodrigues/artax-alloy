@@ -1,27 +1,62 @@
+.remote{
+    margin-top: 50px;
+}
+
+.box{
+    background-color: #F5F3F4;
+}
+
+.navbar{
+    background-color: #FFFFFF;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
 .agency-logo {
     height: 100px !important;
     width: auto !important;
     margin-right: 30px;
 }
 
-.remote{
-    margin-top: 50px;
+.stream-box {
+    background-color: #FFFFFF;
+    margin-top: 20px;
+    margin-bottom: 150px;
 }
 
 button {
     height: 50px;
 }
 
-.box{
-    background-color: #F5F3F4;
-    margin-bottom: 50px;
+.screen {
+    --bs-aspect-ratio: 56%;
 }
 
-.navbar{
-    background-color: #FFFFFF;
+iframe {
+    width: 100%;
 }
 
-.stream-box {
-    background-color: #FFFFFF;
+
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 32px;
+    }
+    
+    button {
+        font-size: 14px !important;
+    }
 }
 
+@media only screen and (max-width: 376px) {
+    .agency-logo{
+        height: 50px;
+    }
+    
+    h1 {
+        font-size: 26px;
+    }
+    
+    button {
+        font-size: 12px !important;
+    }
+}
