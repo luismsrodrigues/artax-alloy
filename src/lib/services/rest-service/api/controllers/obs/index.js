@@ -1,7 +1,7 @@
 const DEBUG = require('debug')('OBS_API');
 const ROUTER  =  require('express').Router();
 
-module.exports = function(OBS_INTEGRATION){
+module.exports = function(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION){
 
     ROUTER.get("/status", (request, response, next) => {
         response.json(OBS_INTEGRATION.GetState());

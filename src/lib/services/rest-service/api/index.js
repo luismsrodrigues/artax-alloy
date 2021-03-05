@@ -2,7 +2,7 @@ const DEBUG = require('debug')('API');
 const ROUTER  =  require('express').Router();
 const JWT = require('jsonwebtoken');
 
-module.exports = function(OBS_INTEGRATION, GLOBAL_STATE){
+module.exports = function(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION){
 
     ROUTER.get("/version", (request, response, next) => {
         response.json({
@@ -39,9 +39,9 @@ module.exports = function(OBS_INTEGRATION, GLOBAL_STATE){
         }
     });
     
-    ROUTER.use("/game", require("./controllers/game"));
-    ROUTER.use("/obs", require("./controllers/obs")(OBS_INTEGRATION, GLOBAL_STATE));
-    ROUTER.use("/central", require("./controllers/central")(OBS_INTEGRATION, GLOBAL_STATE));
+    ROUTER.use("/game", require("./controllers/game")(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION));
+    ROUTER.use("/obs", require("./controllers/obs")(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION));
+    ROUTER.use("/central", require("./controllers/central")(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION));
 
     return [
         ROUTER

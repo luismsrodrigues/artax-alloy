@@ -4,8 +4,9 @@ const GLOBAL_STATE = require('../state');
 const CONFIGURATION = require('../configuration');
 const UTILS = require('../utils');
 const OBS_INTEGRATION = require('../integrations/obs-integration')(CONFIGURATION, UTILS, GLOBAL_STATE);
+const CSGO_INTEGRATION = require('../integrations/counter-strike-integration')(CONFIGURATION, UTILS, GLOBAL_STATE);
 
-const REST = require("./rest-service")(OBS_INTEGRATION, GLOBAL_STATE);
+const REST = require("./rest-service")(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION);
 const HTTP = require('http').createServer(REST);
 const SOCKET_IO_SERVICE = require('./socket-io-service')(HTTP);
 

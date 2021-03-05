@@ -5,7 +5,7 @@ const PATH = require('path');
 const CORS = require('cors');
 const BODY_PARSER = require('body-parser');
 
-module.exports = function (OBS_INTEGRATION, GLOBAL_STATE) {
+module.exports = function (OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION) {
 
     REST.use(CORS());
     REST.use(BODY_PARSER.json());
@@ -24,7 +24,7 @@ module.exports = function (OBS_INTEGRATION, GLOBAL_STATE) {
     }
     
     REST.use("/", require("./client"));
-    REST.use("/api", require("./api")(OBS_INTEGRATION, GLOBAL_STATE));
+    REST.use("/api", require("./api")(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION));
     
     REST.use((request, response, next) => {
         DEBUG(response.statusCode);

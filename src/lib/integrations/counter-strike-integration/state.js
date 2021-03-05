@@ -1,7 +1,7 @@
-
 let STATE = {
-    DisplayActive: ""
-}
+    Running: false,
+    Connected: false
+};
 
 let EFFECTS = [];
 
