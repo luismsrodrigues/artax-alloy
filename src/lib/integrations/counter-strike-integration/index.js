@@ -3,13 +3,19 @@ const State = require('./state');
 
 module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     const CSGO_EXE_NAME = "csgo.exe";
-
-    async function startAndConnect(ip) {
-        return await UTILS.Process.start(`"steam://run/730//-window +connect ${ip}"`).OpenProgram();
+    const ACTIONS = {};
+    
+    function AddAction(actionName, action) {
+        ACTIONS[actionName] = action;
     }
 
     async function IsRunning() {
         return await UTILS.Process.isRunning(CSGO_EXE_NAME);
+    }
+
+    async function startAndConnect(ip) {
+        if(State.Get().Running) throw "CS GO IT'S RUNNING."
+        return await UTILS.Process.start(`"steam://run/730//-window +connect ${ip}"`).OpenProgram();
     }
 
     async function stop() {
@@ -20,6 +26,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     State.AddEffect(async (oldState, newState) => {
         let tempState = JSON.stringify(newState);
         DEBUG("STATE", JSON.stringify(tempState));
+        await ACTIONS["StateChange"](tempState);
     });
 
     return {
@@ -27,6 +34,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
         StartAndConnect: startAndConnect,
         Stop: stop,
 
+        AddAction,
         CheckState: async function(){
             let isRunning = await IsRunning();
             await State.Set({Running: isRunning});

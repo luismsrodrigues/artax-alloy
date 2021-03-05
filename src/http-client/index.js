@@ -29,7 +29,6 @@ const CLIENT_PROVIDER = function (API_URL) {
     });
 };
 
-
 CLIENT_PROVIDER("http://localhost:" + process.env.APP_PORT);
 
 module.exports = CLIENT_PROVIDER;

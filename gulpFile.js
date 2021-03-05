@@ -3,6 +3,10 @@ const DEL = require('del');
 const GULP = require('gulp');
 const RENAME = require('gulp-rename');
 
+GULP.task('clean:lib', function(){
+    return DEL('dist/service', {force:true});
+});
+
 GULP.task('dev:lib', function() {
     NODEMON({
         script: 'src/lib/index.js',
@@ -13,6 +17,10 @@ GULP.task('dev:lib', function() {
     .on('restart', function() {
         console.log('LIB RESTART');
     })
+});
+
+GULP.task('clean:http-client', function(){
+    return DEL('dist/http-client', {force:true});
 });
 
 GULP.task('dev:http-client', function() {
@@ -27,19 +35,15 @@ GULP.task('dev:http-client', function() {
     })
 });
 
-GULP.task('clean', function(){
-    return DEL('dist', {force:true});
-});
-
 GULP.task('copy-staticFiles', function(){
-    return GULP.src(['src/client/static/**'])
-        .pipe(GULP.dest('dist/static/'));
+    return GULP.src(['src/http-client/static/**'])
+        .pipe(GULP.dest('dist/http-client/static/'));
 });
 
-GULP.task('copy-env', function(){
+GULP.task('copy-env-http-client', function(){
     return GULP.src(['.production.env'])
         .pipe(RENAME('.env'))
-        .pipe(GULP.dest('dist/'));
+        .pipe(GULP.dest('dist/http-client/'));
 });
 
-GULP.task('postbuild', GULP.parallel("copy-env", "copy-staticFiles"));
+GULP.task('postbuild:http-client', GULP.parallel("copy-env-http-client", "copy-staticFiles"));

@@ -35,6 +35,10 @@ HTTP.listen(process.env.APP_PORT, ()=>{
         SOCKET_IO_SERVICE.Emit("obsState", state);
     });
 
+    CSGO_INTEGRATION.AddAction("StateChange", async (state) => {
+        SOCKET_IO_SERVICE.Emit("csgoState", state);
+    });
+
     if(CONFIGURATION.START_OBS_ON_INIT){
         await OBS_INTEGRATION.Start();
     }
@@ -56,7 +60,6 @@ HTTP.listen(process.env.APP_PORT, ()=>{
     SOCKET_IO_SERVICE.Init([
         () => SOCKET_IO_SERVICE.Emit("globalState", JSON.stringify(GLOBAL_STATE.Get())),
     ]);
-
 
     setInterval(async () => {
         await OBS_INTEGRATION.CheckState();

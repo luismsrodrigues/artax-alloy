@@ -5,11 +5,14 @@
   "main": "src/index.js",
   "bin": "src/index.js",
   "scripts": {
-    "dev:http-client": "gulp dev:http-client",
     "dev:lib": "gulp dev:lib",
-    "prebuild": "gulp clean",
-    "build": "pkg src/index.js --out-path dist --t node12-win-x64,node12-win-x86",
-    "postbuild": "gulp postbuild"
+    "prebuild:lib": "gulp clean:lib",
+    "build:lib": "pkg src/lib/index.js --out-path dist/service --t node12-win-x64,node12-win-x86",
+
+    "dev:http-client": "gulp dev:http-client",
+    "prebuild:http-client": "gulp clean:http-client",
+    "build:http-client": "pkg src/http-client/index.js --out-path dist/http-client --t node12-win-x64,node12-win-x86",
+    "postbuild:http-client": "gulp postbuild:http-client"
   },
   "keywords": [],
   "author": "",

@@ -60,6 +60,8 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
 
         DEBUG('STUDIO MOD'); 
 
+        await sendCommand('SetHeartbeat', { enable: true });
+        
         let result = await sendCommand('GetSceneList');
         let tempState = {
             Scenes: []
