@@ -1,0 +1,27 @@
+.agency-logo {
+    height: 100px !important;
+    width: auto !important;
+    margin-right: 30px;
+}
+
+.remote{
+    margin-top: 50px;
+}
+
+button {
+    height: 50px;
+}
+
+.box{
+    background-color: #F5F3F4;
+    margin-bottom: 50px;
+}
+
+.navbar{
+    background-color: #FFFFFF;
+}
+
+.stream-box {
+    background-color: #FFFFFF;
+}
+
