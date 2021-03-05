@@ -5,7 +5,7 @@ const RENAME = require('gulp-rename');
 
 GULP.task('dev:lib', function() {
     NODEMON({
-        script: 'src/index.js',
+        script: 'src/lib/index.js',
         ext: '*',
         watch: 'src/lib',
         ignore: ['']
