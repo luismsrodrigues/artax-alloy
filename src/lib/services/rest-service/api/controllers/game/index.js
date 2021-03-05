@@ -10,7 +10,7 @@ module.exports = function (OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION) {
     });
 
     
-    ROUTER.get("/start/csgo", (request, response, next) => {
+    ROUTER.get("/start/csgo", async (request, response, next) => {
         function validateNum(input, min, max) {
             var num = +input;
             return num >= min && num <= max && input === num.toString();
@@ -34,6 +34,8 @@ module.exports = function (OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION) {
                 throw "Invalid ip.";
             }  
 
+            await CSGO_INTEGRATION.StartAndConnect(ip);
+
             response.json(CSGO_INTEGRATION.GetState());
         } catch (error) {
             response.status(500).json({errorMessage: error});
@@ -42,8 +44,14 @@ module.exports = function (OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION) {
     });
 
     
-    ROUTER.get("/stop/csgo", (request, response, next) => {
-        response.json(CSGO_INTEGRATION.GetState());
+    ROUTER.get("/stop/csgo", async (request, response, next) => {
+        try {
+            await CSGO_INTEGRATION.Stop();
+
+            response.json(CSGO_INTEGRATION.GetState());
+        } catch (error) {
+            response.status(500).json({errorMessage: error});
+        }
         next();
     });
 

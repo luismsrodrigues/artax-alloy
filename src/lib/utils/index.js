@@ -31,12 +31,14 @@ const start = (program) => {
             });
         },
         OpenProgram: () => {
-            exec(`start "" ${program}`, (err, stdout, stderr) => {
-                if(err || stderr){
-                    reject(err);
-                }
+            return new Promise((resolve, reject) => {
+                exec(`start "" ${program}`, (err, stdout, stderr) => {
+                    if(err || stderr){
+                        reject(err);
+                    }
 
-                resolve(stdout);
+                    resolve(stdout);
+                });
             });
         }
     }

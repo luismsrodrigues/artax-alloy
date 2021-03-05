@@ -18,7 +18,10 @@ module.exports = function(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION){
 
             await GLOBAL_STATE.Set({DisplayActive: display});
 
-            response.json(OBS_INTEGRATION.GetState());
+            response.json({
+                OBS_STATUS: OBS_INTEGRATION.GetState(),
+                CSGO_STATUS: CSGO_INTEGRATION.GetState()
+            });
         } catch (error) {
             response.status(500).json({errorMessage: error});
         }

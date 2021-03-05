@@ -20,7 +20,7 @@ GULP.task('clean', function(){
 });
 
 GULP.task('copy-staticFiles', function(){
-    return GULP.src(['src/static/**'])
+    return GULP.src(['src/client/static/**'])
         .pipe(GULP.dest('dist/static/'));
 });
 

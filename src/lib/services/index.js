@@ -31,6 +31,10 @@ HTTP.listen(process.env.APP_PORT, ()=>{
         OBS_INTEGRATION.UpdateScenes();
     });
 
+    OBS_INTEGRATION.AddAction("StateChange", async (state) => {
+        SOCKET_IO_SERVICE.Emit("obsState", state);
+    });
+
     if(CONFIGURATION.START_OBS_ON_INIT){
         await OBS_INTEGRATION.Start();
     }
@@ -56,5 +60,6 @@ HTTP.listen(process.env.APP_PORT, ()=>{
 
     setInterval(async () => {
         await OBS_INTEGRATION.CheckState();
+        await CSGO_INTEGRATION.CheckState();
     }, 2000);
 })();

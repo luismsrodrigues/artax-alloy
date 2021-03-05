@@ -192,8 +192,10 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
         }
     });
 
-    State.AddEffect((oldState, newState) => {
-        DEBUG("STATE", JSON.stringify(newState));
+    State.AddEffect(async (oldState, newState) => {
+        let tempState = JSON.stringify(newState);
+        DEBUG("STATE", JSON.stringify(tempState));
+        await ACTIONS["StateChange"](tempState);
     });
 
     State.AddEffect(async (oldState, newState) => {

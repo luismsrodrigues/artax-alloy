@@ -1,6 +1,6 @@
 var socket = io("http://localhost:12080", {
   auth: {
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2MTQ4OTcxNjAsImV4cCI6MTYxNDkwMjE2MH0.KfjXZPcyYpOTfKtFMO8QDvj3qRcLXoh9r8wzbtnb6hQ"
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2MTQ5MDcxMDQsImV4cCI6MTYxNDkxMjEwNH0.t0BATDYV8OZKQ9dEJlZjMXi2u93v7G69zMX-slNSd4I"
   },
 });
 
@@ -17,6 +17,12 @@ socket.on('previewNextScreen', function(data) {
 
 socket.on('state', function(data) {
   console.log(data);
+});
+
+socket.on('obsState', function(data) {
+  const OBS_STATE = JSON.parse(data);
+
+  console.log(OBS_STATE);
 });
 
 socket.on('globalState', function(data) {
