@@ -19,6 +19,14 @@ GULP.task('dev:lib', function() {
     })
 });
 
+GULP.task('copy-env-lib', function(){
+    return GULP.src(['.production.env'])
+        .pipe(RENAME('.env'))
+        .pipe(GULP.dest('dist/service/'));
+});
+
+GULP.task('postbuild:lib', GULP.parallel("copy-env-lib"));
+
 GULP.task('clean:http-client', function(){
     return DEL('dist/http-client', {force:true});
 });
