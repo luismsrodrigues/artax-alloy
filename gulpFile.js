@@ -17,7 +17,7 @@ GULP.task('dev:lib', function() {
 
 GULP.task('dev:client', function() {
     NODEMON({
-        script: 'src/client/index.js',
+        script: 'src/http-client/index.js',
         ext: '*',
         watch: 'src/client',
         ignore: ['']
