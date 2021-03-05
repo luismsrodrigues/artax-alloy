@@ -1,6 +1,5 @@
 const DEBUG = require('debug')('GAME');
 const ROUTER  =  require('express').Router();
-const isIp = require('is-ip');
 
 module.exports = function (OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION) {
 
