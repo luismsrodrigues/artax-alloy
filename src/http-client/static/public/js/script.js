@@ -44,3 +44,9 @@ socket.on('globalState', function(data) {
 });
 
 $('.my-select').selectpicker();
+
+
+function changeWidth(getFromThisClass, putInThisClass) {
+  var element1 = document.getElementById("getFromThisClass").style.maxWidth;
+  document.getElementById("putInThisClass").style.maxWidth = element1;
+}
