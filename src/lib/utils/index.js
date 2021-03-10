@@ -66,7 +66,7 @@ const ExitAction = (code) => {
     });
 };
 
-module.exports = {
+const Utils = {
     Process: {
         isRunning,
         start,
@@ -94,3 +94,6 @@ module.exports = {
         }
     }
 }
+
+
+module.exports = Utils;
