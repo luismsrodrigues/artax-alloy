@@ -1,15 +1,217 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Static HTML Site Boilerplate</title>
-</head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body>
-    <h1>Hello Static HTML!</h1>
-    <a href="/page.html">Link to my other page</a>
-    <img src="/static/tail.png" alt="code"/>
-    <h1>Test 123 112323</h1>
-</body>
+    <title>Dashboard</title>
+    <link   
+      rel="stylesheet" 
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body data-theme="light">
+    <div id="overlay" style="display: none;">
+      <div class="loader"></div>
+    </div>
+
+    <div class="side-bar side-bar__desktop">
+      <div class="content">
+        <div class="tab active">
+          <i class="fas fa-tv"></i>
+        </div>
+  
+        <div class="tab fix__bottom" onclick="toggleTheme()">
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="panel panel__left">
+        <div class="content">
+
+          <div class="card" style="height: 60px;">
+            <h1 style="font-size: 24px;"><i class="fas fa-server"></i> SERVIDORES</h1>
+          </div>
+
+          <div class="scroll_zone">
+            <div class="card card-server animate__animated  animate__flipInX">
+              <h1>SERVIDOR 00001</h1>
+              <div class="fix__bottom">
+                <span class="player player-on"></span>
+                <span class="player player-on"></span>
+                <span class="player player-on"></span>
+                <span class="player player-on"></span>
+                <span class="player player-on"></span>
+                <span class="player player-on"></span>
+                <span class="player player-on"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+              </div>
+            </div>
+
+            <div class="card card-server animate__animated  animate__flipInX">
+              <h1>SERVIDOR 00001</h1>
+              <div class="fix__bottom">
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+              </div>
+            </div>
+
+            <div class="card card-server animate__animated  animate__flipInX">
+              <h1>SERVIDOR 00001</h1>
+              <div class="fix__bottom">
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+              </div>
+            </div>
+
+            <div class="card card-server animate__animated  animate__flipInX">
+              <h1>SERVIDOR 00001</h1>
+              <div class="fix__bottom">
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+              </div>
+            </div>
+
+            <div class="card card-server animate__animated  animate__flipInX">
+              <h1>SERVIDOR 00001</h1>
+              <div class="fix__bottom">
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+              </div>
+            </div>
+
+            <div class="card card-server animate__animated  animate__flipInX">
+              <h1>SERVIDOR 00001</h1>
+              <div class="fix__bottom">
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+              </div>
+            </div>
+
+            <div class="card card-server animate__animated  animate__flipInX">
+              <h1>SERVIDOR 00001</h1>
+              <div class="fix__bottom">
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+                <span class="player"></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="panel panel__central">
+        <div class="content">
+          <div class="card">
+            <h1>Central</h1>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel__right">
+        <div class="content">
+          <div class="card bk-blue">
+            <h1 style="font-size: 22px;"><i class="fab fa-steam"></i> Entrar</h1>
+          </div>
+          <div class="card">
+            <h1>Test</h1>
+          </div>
+          <div class="card" style="height: 250px">
+            <canvas id="myChart" width="250" height="250" style="max-height: 250px; max-width: 250px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script>
+      function toggleTheme(){
+          // Default to light theme, since that is starting theme
+          window.theme = typeof(window.theme)==='string' ? window.theme : 'light';
+          var switchToTheme = window.theme === 'light' ? 'dark' : 'light';
+          window.theme = switchToTheme;
+          document.querySelector('body').setAttribute('data-theme',switchToTheme);
+      }
+
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+              datasets: [{
+                  label: '# of Votes',
+                  data: [12, 19, 3, 5, 2],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: true
+                      }
+                  }]
+              }
+          }
+      });
+      </script>
+  </body>
+</html>
