@@ -51,347 +51,87 @@ img {
   display: block;
 }
 
-:root {
-  --animate-delay: 0.1s;
+.remote{
+  margin-top: 50px;
 }
 
-body[data-theme="dark"] {
-  --card_background: #242731;
-  --panel: #1F222B;
-  --panel_central: #242731;
-  --side_bar: #1B1D25;
-  --font:white;
-  --border: rgb(151, 151, 151);
-  --primaryColor: black;
-  --secondaryColor: white;
+.box{
+  background-color: #F5F3F4;
+  border-radius: 7px;
 }
 
-body[data-theme="light"] {
-  --card_background: #E5E5E5;
-  --panel: #EFEFF1;
-  --panel_central: #F7F7F8;
-  --side_bar: #FFFFFF;
-  --font:#242731;
-  --border: #242731;
-  --primaryColor: black;
-  --secondaryColor: white;
+.navbar{
+  background-color: #FFFFFF;
+  margin-left: -15px;
+  margin-right: -15px;
+  border-radius: 7px;
 }
 
-.bk{
-  &-blue{
-    background: linear-gradient(
-      90deg
-      ,#9130de,#3f8cff) !important;
-  }
-
-  &-gray{
-    background: #242731 !important;
-  }
-
-  &-gray-dark{
-    background: #1C1D24 !important;
-  }
+.agency-logo {
+  height: 100px !important;
+  width: auto !important;
+  margin-right: 30px;
 }
 
-.side-bar{
-  background-color: var(--side_bar);
-  display: flex;
-
-  .tab{
-    display: flex;
-    position: relative;
-    height: 44px;
-    width: 44px;
-    border-radius: 12px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    margin-bottom: 10px;
-    color: var(--font);
-    border: 1px solid var(--border);
-
-    &.active{
-      @extend .bk-blue;
-      border: none;
-      color: var(--font);;
-    }
-
-    &:hover{
-      color:var(--font);;
-      transform: scale(1.10);
-    }
-
-    &.fix__bottom{
-      border-width: 0;
-      margin: auto 0 15px 0;
-    }
-  }
-
-  &__desktop{
-    position: fixed;
-    height: 100%;
-    width: 60px;
-    color: var(--font);
-    padding: 5px 5px 5px 5px;
-
-    & >.content{
-      display: flex;
-      position: relative;
-      align-items: center;
-      flex-direction: column;
-      height: 100%;
-      width: 100%;
-      margin-top: 5px;
-    }
-  }
+.stream-box {
+  background-color: #FFFFFF;
+  margin-top: 20px;
+  margin-bottom: 150px;
+  border-radius: 7px;
 }
 
-.container{
-  position: absolute;
-  top: 0;
-  left: 70px;
-  display: flex;
-  width: calc(100% - 70px);
+button {
+  height: 50px;
+}
+
+.screen {
+  --bs-aspect-ratio: 56%;
+  width: 100%;
   height: 100%;
-  color: white;
-
-  & > .panel{
-    display: flex;
-    position: relative;
-    background-color: var(--panel);
-    height: 100%;
-
-    &__left{
-      width: 500px;
-    }
-
-    &__central{
-      width: 100%;
-      background-color: var(--panel_central);
-    }
-
-    &__right{
-      width: 500px;
-    }
-
-    .content{
-      width: 100%;
-      display: flex;
-      position: relative;
-      align-items: center;
-      flex-direction: column;
-      margin: 10px;
-
-      .scroll_zone{
-        width: inherit;
-        height: inherit;
-        overflow-x: hidden;
-        overflow-y:auto; 
-
-        &::-webkit-scrollbar {
-          width: 5px;
-        }
-       
-        &::-webkit-scrollbar-thumb {
-          background-color: var(--border);
-          border-radius: 15px;
-       
-          &:hover {
-           background: rgba(104, 103, 103, 0.432);
-          }
-        }
-      }
-
-      .card{
-        padding: 17px 20px;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        height: auto;
-        width: 100%;
-        background: var(--card_background);
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        justify-content: center;
-        margin-bottom: 15px;
-        color: var(--font);
-
-        &.blur{
-          filter: blur(3px);
-        }
-
-        &-align__left{
-          align-items: start !important;
-          justify-content: start !important;
-        }
-
-        &-server{
-          height: 120px; 
-          cursor: pointer;
-          flex-direction: column;
-          background-image: linear-gradient(90deg ,#9030de42,#3f8cff), url(https://static.wikia.nocookie.net/cswikia/images/6/61/CSGO_Dust_2_10th_June_2020_update_A_site_pic_1.jpg);
-          background-size:cover;
-          background-blend-mode: multiply;
-          justify-content: space-between;
-
-          &:hover{
-            border-style: solid;
-            border-width: 2px;
-            border-color: #3f8cff;
-          }
-
-
-          .player {
-            height: 15px;
-            width: 15px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-
-            &-on{
-              background-color: rgb(9, 196, 87) !important;
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 
-@media (max-width: 1100px) {
-  .side-bar{
-    &__desktop{
-      width: 100%;
-      height: 60px;
-      bottom: 0;
-
-      & >.content{
-        display: flex;
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-      }
-    }
-  } 
-
-  .container{
-    left: 0;
-    width: 100%;
-    height: calc(100% - 60px);
-
-    & > .panel{
-      display: flex;
-      position: relative;
-      height: 100%;
-  
-      &__left{
-        display: none;
-      }
-
-      &__right{
-        display: none;
-      }
-    }
-  }
-}
-
-.loader {
-  color: #ffffff;
-  font-size: 50px;
-  text-indent: -9999em;
-  overflow: hidden;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  margin: 72px auto;
-  position: relative;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
-  animation: load6 1.7s infinite ease, round 1.7s infinite ease;
-}
-
-@-webkit-keyframes load6 {
-  0% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-  5%,
-  95% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-  10%,
-  59% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
-  }
-  20% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
-  }
-  38% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
-  }
-  100% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-}
-@keyframes load6 {
-  0% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-  5%,
-  95% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-  10%,
-  59% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
-  }
-  20% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
-  }
-  38% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
-  }
-  100% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-}
-@-webkit-keyframes round {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes round {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-
-#overlay {
-  position: fixed; /* Sit on top of the page content */
+.modal-dialog {
+  min-height: calc(40vh);
+  margin-top: 60vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  overflow: auto;
+}
+@media(max-width: 768px) {
+.modal-dialog {
+  min-height: calc(40vh);
+  margin-top: 60vh;
+}
+}
+
+
+@media only screen and (max-width: 576px) {
+  .agency-logo{
+      height: 60px !important;
+      margin-right: 20px !important;
+  }
+  h1 {
+      font-size: 26px !important;
+  }
+  
+  button {
+      font-size: 14px !important;
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .agency-logo{
+      height: 40px !important;
+      margin-right: 10px !important;
+  }
+  
+  h1 {
+      font-size: 22px !important;
+  }
+  
+  button {
+      font-size: 12px !important;
+  }
 }
