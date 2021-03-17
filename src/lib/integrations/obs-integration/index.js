@@ -31,7 +31,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     }
 
     function screenShotActionStop() {
-        if(CONFIGURATION.MODULE_PREVIEW_STREAM){
+        if(CONFIGURATION.Modules.PreviewStream.Active){
             DEBUG("STOPED SCREEN SHOT ACTION");
             clearInterval(screenShots);
         }
@@ -130,7 +130,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     }
 
     async function getScreenshot() {
-        if(CONFIGURATION.MODULE_PREVIEW_STREAM){
+        if(CONFIGURATION.Modules.PreviewStream.Active){
             if(State.Get().Connected){
                 let data = "";
 
@@ -152,9 +152,9 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     }
 
     async function screenShotActionStart() {
-        if(CONFIGURATION.MODULE_PREVIEW_STREAM){
+        if(CONFIGURATION.Modules.PreviewStream.Active){
             DEBUG("STARTED SCREEN SHOT ACTION");
-            screenShots =  setInterval(await getScreenshot, 1000 / CONFIGURATION.MODULE_PREVIEW_STREAM_FPS);
+            screenShots =  setInterval(await getScreenshot, 1000 / CONFIGURATION.Modules.PreviewStream.Fps);
         }
     }
 
