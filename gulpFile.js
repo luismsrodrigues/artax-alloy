@@ -3,10 +3,6 @@ const DEL = require('del');
 const GULP = require('gulp');
 const RENAME = require('gulp-rename');
 
-var server = require('gulp-express');
-var lr = require('tiny-lr')();
-
-
 GULP.task('clean:lib', function(){
     return DEL('dist/service', {force:true});
 });

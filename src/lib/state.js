@@ -1,6 +1,5 @@
-
 let STATE = {
-    DisplayActive: ""
+    DisplayActive: "LIVE"
 }
 
 let EFFECTS = [];

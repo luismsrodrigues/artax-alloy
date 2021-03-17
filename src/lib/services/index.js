@@ -1,68 +1,68 @@
-const DEBUG = require('debug')('SERVICE');
-const GLOBAL_STATE = require('../state');
-
-const CONFIGURATION = require('../configuration');
 const UTILS = require('../utils');
-const OBS_INTEGRATION = require('../integrations/obs-integration')(CONFIGURATION, UTILS, GLOBAL_STATE);
-const CSGO_INTEGRATION = require('../integrations/counter-strike-integration')(CONFIGURATION, UTILS, GLOBAL_STATE);
 
-const REST = require("./rest-service")(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION);
-const HTTP = require('http').createServer(REST);
-const SOCKET_IO_SERVICE = require('./socket-io-service')(HTTP);
+module.exports = async function (Configuration, GlobalState) {
+    const DEBUG = require('debug')('SERVICE');
+    const OBS_INTEGRATION = await require('../integrations/obs-integration')(Configuration, UTILS, GlobalState);
 
-UTILS.Application.OnBeforeExit = async () => {
-    await OBS_INTEGRATION.Stop();
-}
+    let isObsPathValid = await OBS_INTEGRATION.ValidatePath();
 
-HTTP.listen(process.env.APP_PORT, ()=>{
-    DEBUG('STARTED 127.0.0.1:' + process.env.APP_PORT);
-});
-
-(async function () {
-    const isValidPath = await UTILS.Directory.Exists(process.env.OBS_PATH);
-
-    if(!isValidPath){
+    if(!isObsPathValid){
         DEBUG("OBS PATH", "INVALID");
         await UTILS.Application.Exit(-1);
     }
 
-    GLOBAL_STATE.AddEffect(async (oldState, newState) => {
-        SOCKET_IO_SERVICE.Emit("globalState", JSON.stringify(newState));
-        OBS_INTEGRATION.UpdateScenes();
-    });
+    const CSGO_INTEGRATION = require('../integrations/counter-strike-integration')(Configuration, UTILS, GlobalState);
+    const REST = require("./rest-service")(OBS_INTEGRATION, GlobalState, CSGO_INTEGRATION);
 
-    OBS_INTEGRATION.AddAction("StateChange", async (state) => {
-        SOCKET_IO_SERVICE.Emit("obsState", state);
-    });
+    const HTTP = require('http').createServer(REST);
+    const SOCKET_IO_SERVICE = require('./socket-io-service')(HTTP);
 
-    CSGO_INTEGRATION.AddAction("StateChange", async (state) => {
-        SOCKET_IO_SERVICE.Emit("csgoState", state);
-    });
-
-    if(CONFIGURATION.START_OBS_ON_INIT){
-        await OBS_INTEGRATION.Start();
+    UTILS.Application.OnBeforeExit = async () => {
+        await OBS_INTEGRATION.Stop();
+        await CSGO_INTEGRATION.Stop();
     }
 
-    if(CONFIGURATION.CONNECT_OBS_ON_INIT){
-        await OBS_INTEGRATION.Connect();
-    }
-
-    OBS_INTEGRATION.AddAction("PreviewScreen", (image) => {
-        SOCKET_IO_SERVICE.Emit("previewScreen", image);
+    HTTP.listen(Configuration.App.Port, ()=>{
+        DEBUG('STARTED 127.0.0.1:' + Configuration.App.Port);
     });
+}
 
-    OBS_INTEGRATION.AddAction("PreviewNextScreen", (image) => {
-        SOCKET_IO_SERVICE.Emit("previewNextScreen", image);
-    });
-    
-    await GLOBAL_STATE.Set({ DisplayActive: "LIVE" });
-    
-    SOCKET_IO_SERVICE.Init([
-        () => SOCKET_IO_SERVICE.Emit("globalState", JSON.stringify(GLOBAL_STATE.Get())),
-    ]);
+// (async function () {
+//     GLOBAL_STATE.AddEffect(async (oldState, newState) => {
+//         SOCKET_IO_SERVICE.Emit("globalState", JSON.stringify(newState));
+//         OBS_INTEGRATION.UpdateScenes();
+//     });
 
-    setInterval(async () => {
-        await OBS_INTEGRATION.CheckState();
-        await CSGO_INTEGRATION.CheckState();
-    }, 2000);
-})();
+//     OBS_INTEGRATION.AddAction("StateChange", async (state) => {
+//         SOCKET_IO_SERVICE.Emit("obsState", state);
+//     });
+
+//     CSGO_INTEGRATION.AddAction("StateChange", async (state) => {
+//         SOCKET_IO_SERVICE.Emit("csgoState", state);
+//     });
+
+//     if(CONFIGURATION.START_OBS_ON_INIT){
+//         await OBS_INTEGRATION.Start();
+//     }
+
+//     if(CONFIGURATION.CONNECT_OBS_ON_INIT){
+//         await OBS_INTEGRATION.Connect();
+//     }
+
+//     OBS_INTEGRATION.AddAction("PreviewScreen", (image) => {
+//         SOCKET_IO_SERVICE.Emit("previewScreen", image);
+//     });
+
+//     OBS_INTEGRATION.AddAction("PreviewNextScreen", (image) => {
+//         SOCKET_IO_SERVICE.Emit("previewNextScreen", image);
+//     });
+    
+//     SOCKET_IO_SERVICE.Init([
+//         () => SOCKET_IO_SERVICE.Emit("globalState", JSON.stringify(GLOBAL_STATE.Get())),
+//     ]);
+
+//     setInterval(async () => {
+//         await OBS_INTEGRATION.CheckState();
+//         await CSGO_INTEGRATION.CheckState();
+//     }, 2000);
+// })();

@@ -8,6 +8,10 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     const OBS_EXE_NAME = "obs64.exe";
     const ACTIONS = {};
     var screenShots = null;
+
+    async function ValidatePath() {
+        return await UTILS.Directory.Exists(CONFIGURATION.Obs.Path);
+    }
     
     function AddAction(actionName, action) {
         ACTIONS[actionName] = action;
@@ -91,11 +95,13 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
         try {
             if(await IsRunning()){
                 await obs.connect({ address: "localhost:4444", password: "123" });
+                await State.Set({Connected: true});
             }else{
                 DEBUG('OBS its not running.'); 
             }
         } catch (error) {
             DEBUG('Error on trying connect to OBS.');               
+            await State.Set({Connected: false});
         }
     }
 
@@ -117,7 +123,9 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
             DEBUG("ALL READY RUNNING");
          }else{
             await UTILS.Process.start(OBS_EXE_NAME).WithDirectory(process.env.OBS_PATH);
-             DEBUG("STARTED");
+            await State.Set({Running: true});
+            DEBUG("STARTED");
+            await connectToProgram();
          }
     }
 
@@ -180,14 +188,6 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
 
     //State Effects
     State.AddEffect(async (oldState, newState) => {
-        if((oldState.Running !== newState.Running) 
-            && newState.Running 
-            && !newState.Connected){
-            await connectToProgram();
-        }
-    });
-
-    State.AddEffect(async (oldState, newState) => {
         if(!newState.Running 
             || !newState.Connected){
             await screenShotActionStop();
@@ -197,7 +197,9 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     State.AddEffect(async (oldState, newState) => {
         let tempState = JSON.stringify(newState);
         DEBUG("STATE", JSON.stringify(tempState));
-        await ACTIONS["StateChange"](tempState);
+        if(ACTIONS["StateChange"]){
+            await ACTIONS["StateChange"](tempState);
+        }
     });
 
     State.AddEffect(async (oldState, newState) => {
@@ -228,6 +230,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
         SetNewPreviewScene: setNewPreviewScene,
         SetNewLiveScene: setNewLiveScene,
 
+        ValidatePath,
         CheckState: async function(){
             let isRunning = await IsRunning();
             await State.Set({Running: isRunning});
