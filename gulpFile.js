@@ -20,7 +20,7 @@ GULP.task('dev:lib', function() {
 });
 
 GULP.task('copy-env-lib', function(){
-    return GULP.src(['.production.env'])
+    return GULP.src(['src/lib/.production.env'])
         .pipe(RENAME('.env'))
         .pipe(GULP.dest('dist/service/'));
 });

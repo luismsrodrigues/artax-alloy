@@ -7,7 +7,7 @@ module.exports = {
  	target: 'node',
 	output: {
 		path: path.resolve(__dirname, '..', 'dist', 'service'),
-		filename: '[name].[hash].js',
+		filename: '[name].js',
 		publicPath: '/dist/'
 	},
 	module: {
