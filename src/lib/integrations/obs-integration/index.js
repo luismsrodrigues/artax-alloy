@@ -1,6 +1,6 @@
 const DEBUG = require('debug')('OBS_INTEGRATION');
 const OBSWebSocket = require('obs-websocket-js');
-
+const { ExecuteAction } = require('../index');
 const State = require('./state');
 
 module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
@@ -119,14 +119,16 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     async function startProgram() {
         DEBUG("STARTING");
 
-         if(await IsRunning()){
+        if(await IsRunning()){
             DEBUG("ALL READY RUNNING");
-         }else{
+            await State.Set({Running: true});
+            await connectToProgram();
+        }else{
             await UTILS.Process.start(OBS_EXE_NAME).WithDirectory(process.env.OBS_PATH);
             await State.Set({Running: true});
             DEBUG("STARTED");
             await connectToProgram();
-         }
+        }
     }
 
     async function getScreenshot() {
@@ -137,14 +139,14 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
                 if(GLOBAL_STATE.Get().DisplayActive === "LIVE"){
                     data = await sendCommand('TakeSourceScreenshot', { sourceName: State.Get().CurrentScene, embedPictureFormat: 'png', width: 960, height: 540 });
                     if (data && data.img) {
-                        ACTIONS["PreviewScreen"](data);
+                        await ExecuteAction(ACTIONS["PreviewScreen"], data)
                     }
                 }
 
                 if(GLOBAL_STATE.Get().DisplayActive === "PREVIEW"){
                     data = await sendCommand('TakeSourceScreenshot', { sourceName: State.Get().PreviewScene, embedPictureFormat: 'png', width: 960, height: 540 });
                     if (data && data.img) {
-                        ACTIONS["PreviewNextScreen"](data);
+                        await ExecuteAction(ACTIONS["PreviewNextScreen"], data)
                     }
                 }
             }
@@ -197,9 +199,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     State.AddEffect(async (oldState, newState) => {
         let tempState = JSON.stringify(newState);
         DEBUG("STATE", JSON.stringify(tempState));
-        if(ACTIONS["StateChange"]){
-            await ACTIONS["StateChange"](tempState);
-        }
+        await ExecuteAction(ACTIONS["StateChange"], tempState);
     });
 
     State.AddEffect(async (oldState, newState) => {
