@@ -37,10 +37,11 @@ button {
     height: 100%;
 }
 
-
+/* MODAL */
 .modal-dialog {
-    min-height: calc(40vh);
-    margin-top: 60vh;
+    min-height: calc(30vh);
+    max-width: 650px;
+    margin-top: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,12 +49,12 @@ button {
 }
 @media(max-width: 768px) {
   .modal-dialog {
-    min-height: calc(40vh);
-    margin-top: 60vh;
+    min-height: calc(30vh);
+    margin-top: 70vh;
   }
 }
 
-
+/* IMAGEM AGENCY */
 @media only screen and (max-width: 576px) {
     .agency-logo{
         height: 60px !important;
