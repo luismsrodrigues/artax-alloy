@@ -2,14 +2,12 @@ const path = require('path');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-var isProd = process.env.NODE_ENV === 'production';
-
 module.exports = {
-  	entry: ['./src/lib/index.js'],
+  	entry: ['babel-polyfill', './src/lib/index.js'],
  	target: 'node',
 	output: {
-		path: path.resolve(__dirname, 'dist'),
-		filename: isProd ? '[name].[hash].js' : '[name].js',
+		path: path.resolve(__dirname, '..', 'dist', 'service'),
+		filename: '[name].[hash].js',
 		publicPath: '/dist/'
 	},
 	module: {

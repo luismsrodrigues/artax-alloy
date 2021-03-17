@@ -7,10 +7,9 @@
   "scripts": {
     "dev:http-client": "gulp dev:http-client",
     "dev:lib": "gulp dev:lib",
-    "prebuild": "gulp clean",
-    "build": "pkg src/index.js --out-path dist --t node12-win-x64,node12-win-x86",
-    "postbuild": "gulp postbuild",
-    "test": "webpack --mode production"
+    "prebuild:lib": "gulp clean:lib",
+    "build:lib": "webpack --config webpack/lib.webpack.config.js --mode production",
+    "postbuild:lib": "gulp postbuild:lib"
   },
   "keywords": [],
   "author": "",
