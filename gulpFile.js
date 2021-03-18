@@ -43,13 +43,13 @@ GULP.task('dev:http-client', function() {
 });
 
 GULP.task('copy-staticFiles', function(){
-    return GULP.src(['src/http-client/static/**'])
-        .pipe(GULP.dest('dist/http-client/static/'));
+    return GULP.src(['src/clients/http-client/www/**'])
+        .pipe(GULP.dest('dist/http-client/www/'));
 });
 
 GULP.task('copy-env-http-client', function(){
-    return GULP.src(['.production.env'])
-        .pipe(RENAME('.env'))
+    return GULP.src(['src/clients/http-client/.production.env'])
+        .pipe(RENAME('.http-client.env'))
         .pipe(GULP.dest('dist/http-client/'));
 });
 
