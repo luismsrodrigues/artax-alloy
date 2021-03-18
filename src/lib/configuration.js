@@ -1,8 +1,10 @@
+const PATH = require('path');
+
 module.exports = function () {
     if(process.env.NODE_ENV === 'dev'){
         require('dotenv').config({path: __dirname + '/.env'})
     }else{
-        require('dotenv').config();
+        require('dotenv').config({path: PATH.resolve('.', '.service.env')});
     }
 
     function stringToBoolean(value) {

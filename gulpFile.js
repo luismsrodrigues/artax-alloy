@@ -21,7 +21,7 @@ GULP.task('dev:lib', function() {
 
 GULP.task('copy-env-lib', function(){
     return GULP.src(['src/lib/.production.env'])
-        .pipe(RENAME('.env'))
+        .pipe(RENAME('.service.env'))
         .pipe(GULP.dest('dist/service/'));
 });
 

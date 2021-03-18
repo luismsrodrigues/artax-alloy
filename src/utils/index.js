@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const { exec, spawnSync } = require('child_process');
 const PLATFORM = process.platform;
 const FS = require('fs');
 
@@ -66,7 +66,25 @@ const ExitAction = (code) => {
     });
 };
 
+const PRE_ALERT = "Add-Type -AssemblyName PresentationCore,PresentationFramework;";
+
+function ConvertAlertResultString(alertResult) {
+    return alertResult.output[1].replace(/(\r\n|\n|\r)/gm, "");
+}
+
 const Utils = {
+    Alert:{
+        Error: async ({title, message}) => {
+            title = title.replace(/(\r\n|\n|\r)/gm, "");
+            message = message.replace(/(\r\n|\n|\r)/gm, "");
+            return ConvertAlertResultString(await spawnSync("powershell.exe", [`
+                ${PRE_ALERT}
+                [System.Windows.MessageBox]::Show('${message}','${title}','YesNo','Error');
+            `], {
+                encoding: 'utf-8'
+            }));
+        }
+    },
     Process: {
         isRunning,
         start,
@@ -94,6 +112,5 @@ const Utils = {
         }
     }
 }
-
 
 module.exports = Utils;

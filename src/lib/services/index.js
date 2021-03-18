@@ -1,23 +1,21 @@
-const UTILS = require('../utils');
-
-module.exports = async function (Configuration, GlobalState) {
+module.exports = async function (Configuration, GlobalState, Utils) {
     const DEBUG = require('debug')('SERVICE');
-    const OBS_INTEGRATION = await require('../integrations/obs-integration')(Configuration, UTILS, GlobalState);
+    const OBS_INTEGRATION = await require('../integrations/obs-integration')(Configuration, Utils, GlobalState);
 
     let isObsPathValid = await OBS_INTEGRATION.ValidatePath();
 
     if(!isObsPathValid){
         DEBUG("OBS PATH", "INVALID");
-        await UTILS.Application.Exit(-1);
+        await Utils.Application.Exit(-1);
     }
 
-    const CSGO_INTEGRATION = require('../integrations/counter-strike-integration')(Configuration, UTILS, GlobalState);
+    const CSGO_INTEGRATION = require('../integrations/counter-strike-integration')(Configuration, Utils, GlobalState);
     const REST = require("./rest-service")(OBS_INTEGRATION, GlobalState, CSGO_INTEGRATION);
 
     const HTTP = require('http').createServer(REST);
     const SOCKET_IO_SERVICE = require('./socket-io-service')(HTTP);
 
-    UTILS.Application.OnBeforeExit = async () => {
+    Utils.Application.OnBeforeExit = async () => {
         await OBS_INTEGRATION.Stop();
         await CSGO_INTEGRATION.Stop();
     }

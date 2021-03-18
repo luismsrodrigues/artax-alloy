@@ -124,7 +124,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
             await State.Set({Running: true});
             await connectToProgram();
         }else{
-            await UTILS.Process.start(OBS_EXE_NAME).WithDirectory(process.env.OBS_PATH);
+            await UTILS.Process.start(OBS_EXE_NAME).WithDirectory(CONFIGURATION.Obs.Path);
             await State.Set({Running: true});
             DEBUG("STARTED");
             await connectToProgram();

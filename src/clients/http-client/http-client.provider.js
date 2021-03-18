@@ -1,35 +1,31 @@
-require('dotenv').config();
+(async function () {
+    const CONFIGURATION = require('./configuration')();
+    const DEBUG = require('debug')('HTTP_CLIENT');
+    DEBUG("STARTING");
 
-const CLIENT_PROVIDER = function (API_URL) {
     const EXPRESS = require('express');
     const APP = EXPRESS();
     const HTTP = require('http').createServer(APP);
     const PATH = require('path');
-    const RELOAD = require('reload');
-
-    const PROXY = require('http-proxy-middleware')
-    const APIP_PROXY = PROXY.createProxyMiddleware('/api', {target: API_URL});
-    APP.use(APIP_PROXY)
-
-    if (process.env.NODE_ENV === "development") {
-        APP.use(EXPRESS.static(PATH.resolve(__dirname, 'www')));
+    
+    APP.use(require('http-proxy-middleware').createProxyMiddleware('/api', {
+        target: CONFIGURATION.Api.Path,
+        logLevel: 'silent'
+    }))
+    
+    if (CONFIGURATION.Environment === "dev") {
+        const RELOAD = require('reload');
         RELOAD(APP);
-    }
-
-    if (process.env.NODE_ENV === "production") {
+        APP.use(EXPRESS.static(PATH.resolve(__dirname, 'www')));
+    }else{
         APP.use('/', EXPRESS.static(PATH.join(process.env.PATH_TO_RESOURCES)))
     }
-
+    
     APP.get('/', (request, response) => {
         response.sendFile('index.html');
     });
-
-    HTTP.listen(process.env.CLIENT_PORT, () => {
-        console.log('listening on *:' + process.env.CLIENT_PORT);
+    
+    HTTP.listen(CONFIGURATION.Client.Port, () => {
+        DEBUG("http://localhost:" + CONFIGURATION.Client.Port);
     });
-
-};
-
-CLIENT_PROVIDER("http://localhost:" + process.env.APP_PORT);
-
-module.exports = CLIENT_PROVIDER;
+})();
