@@ -12,9 +12,17 @@
 
     <link rel="stylesheet" href="styles.css" />
     <title>ALLOY PANEL</title>
+    <script>
+      function setWidth(getFromThis, putOnThis){
+        var pageWidth = document.getElementById(getFromThis).offsetWidth;
+        var pageHeight = (pageWidth*9)/16;
+        document.getElementById(putOnThis).style.height = pageHeight;
+        document.getElementById(putOnThis).style.width = pageWidth;
+      }
+    </script>
 </head>
 
-<body class="">
+<body class="" onload="setWidth('button-list', 'frame')">
 
   <div class="container-lg remote">
     <div class="row">
@@ -30,10 +38,10 @@
 
         <div class="card p-4 stream-box">
           <div class="ratio ratio-16x9 screen">
-            <iframe src="https://www.twitch.tv/agencytv" title="Agency TV" class="" allowfullscreen></iframe>
+            <img src="assets/logo-agency.png" class="frame" id="frame">
           </div>
   
-          <div class="list-group list-group-flush d-grid gap-3">
+          <div class="list-group list-group-flush d-grid gap-3" id="button-list">
             <button type="button" class="btn btn-danger my-2">START STREAMING</button>
             <div class="d-flex justify-content-between my-2">
               <button type="button" class="btn btn-dark col">RELOAD OBS</button>
@@ -56,17 +64,28 @@
         <div class="modal-dialog modal-dialog-centered" id="modal" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              ...
+              <img src="assets/logo-agency.png" class="frame" id="frame">
+              <div class="dropdown">
+                <button class="btn btn-dark col dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  SELECT SCENE
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <button class="btn btn-dark col dropdown-item" href="#scene1">SCENE 1</button>
+                  <button class="btn btn-dark col dropdown-item" href="#scene2">SCENE 2</button>
+                  <button class="btn btn-dark col dropdown-item" href="#scene3">SCENE 3</button>
+                  <button class="btn btn-dark col dropdown-item" href="#scene4">SCENE 4</button>
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-dark col" data-dismiss="modal">CLOSE</button>
+              <button type="button" class="btn btn-danger col" data-dismiss="modal">INSERT</button>
             </div>
           </div>
         </div>

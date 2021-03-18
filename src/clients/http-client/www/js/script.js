@@ -49,10 +49,7 @@ $('.my-select').selectpicker();
 function changeWidth(putInThisClass) {
   document.getElementById("putInThisClass").style.maxWidth = getWidth;
 }
-
-function getWidth(){
-  pageWidth = document.documentElement.offsetWidth;
-  return pageWidth;
-}
 */
+
+
 
