@@ -4,8 +4,10 @@ const JWT = require('jsonwebtoken');
 
 module.exports = (HTTP_PROVIDER) => {
     const IO_PROVIDER = IO(HTTP_PROVIDER, {
-        origins: ["localhost"]
-    });
+        cors: {
+          origin: '*',
+        }
+      });
 
     IO_PROVIDER.use((socket, next) => {
         let token = socket.handshake.auth.token;
@@ -23,6 +25,7 @@ module.exports = (HTTP_PROVIDER) => {
     const PROVIDERS = [];
 
     function Init(callbacks) {
+        DEBUG("STARTED");
         IO_PROVIDER.on('connection', async (socket) => {
             DEBUG("USER CONNECTED");
     

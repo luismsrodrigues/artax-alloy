@@ -17,13 +17,13 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     async function startAndConnect(ip) {
         if(State.Get().Running) throw "CS GO IT'S RUNNING."
         await UTILS.Process.start(`"steam://run/730//-window +connect ${ip}"`).OpenProgram();
-        await State.Set({Running: true});
+        await State.Set({Running: true, Ip: ip});
     }
 
     async function stop() {
         if(State.Get().Running)
         await UTILS.Process.stop(CSGO_EXE_NAME);
-        await State.Set({Running: false});        
+        await State.Set({Running: false, Ip: null});        
     }
 
     State.AddEffect(async (oldState, newState) => {

@@ -7,12 +7,7 @@
     const APP = EXPRESS();
     const HTTP = require('http').createServer(APP);
     const PATH = require('path');
-    
-    APP.use(require('http-proxy-middleware').createProxyMiddleware('/api', {
-        target: CONFIGURATION.Api.Path,
-        logLevel: 'silent'
-    }))
-    
+
     if (CONFIGURATION.Environment === "dev") {
         const RELOAD = require('reload');
         RELOAD(APP);

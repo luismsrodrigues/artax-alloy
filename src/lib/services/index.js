@@ -20,9 +20,28 @@ module.exports = async function (Configuration, GlobalState, Utils) {
         await CSGO_INTEGRATION.Stop();
     }
 
+    SOCKET_IO_SERVICE.Init([
+        () => SOCKET_IO_SERVICE.Emit("globalState", JSON.stringify(GlobalState.Get())),
+        () => SOCKET_IO_SERVICE.Emit("obsState", JSON.stringify(OBS_INTEGRATION.GetState())),
+        () => SOCKET_IO_SERVICE.Emit("csgoState", JSON.stringify(CSGO_INTEGRATION.GetState())),
+    ]);
+
+    OBS_INTEGRATION.AddAction("StateChange", async (state) => {
+        SOCKET_IO_SERVICE.Emit("obsState", state);
+    });
+
+    CSGO_INTEGRATION.AddAction("StateChange", async (state) => {
+        SOCKET_IO_SERVICE.Emit("csgoState", state);
+    });
+
     HTTP.listen(Configuration.App.Port, ()=>{
         DEBUG('STARTED 127.0.0.1:' + Configuration.App.Port);
     });
+
+    setInterval(async () => {
+        await OBS_INTEGRATION.CheckState();
+        await CSGO_INTEGRATION.CheckState();
+    }, 2000);
 }
 
 // (async function () {

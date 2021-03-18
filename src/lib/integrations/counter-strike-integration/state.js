@@ -1,6 +1,7 @@
 let STATE = {
     Running: false,
-    Connected: false
+    Connected: false,
+    Ip: null,
 };
 
 let EFFECTS = [];

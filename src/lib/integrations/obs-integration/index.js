@@ -32,7 +32,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
 
     function screenShotActionStop() {
         if(CONFIGURATION.Modules.PreviewStream.Active){
-            DEBUG("STOPED SCREEN SHOT ACTION");
+            DEBUG("STOPPED SCREEN SHOT ACTION");
             clearInterval(screenShots);
         }
     }
@@ -106,10 +106,11 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
     }
 
     async function stopProgram(){
-        DEBUG("STOPING");
+        DEBUG("STOPPING");
         
         if(await IsRunning()){
             let result = await UTILS.Process.stop(OBS_EXE_NAME);
+            await State.Set({Streaming: false});
             DEBUG(result);
         }else{
             DEBUG("NOT RUNNING");
