@@ -11,7 +11,9 @@
     "dev:lib": "SET NODE_ENV=dev&& gulp dev:lib",
     "prebuild:lib": "gulp clean:lib",
     "build:lib": "webpack --config webpack/lib.webpack.config.js --mode production",
-    "postbuild:lib": "gulp postbuild:lib"
+    "postbuild:lib": "gulp postbuild:lib",
+
+    "build:bundle": "webpack --config webpack/lib.http-client.webpack.config.js --mode production"
   },
   "keywords": [],
   "author": "Luis Rodrigues",
