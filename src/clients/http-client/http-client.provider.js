@@ -18,8 +18,10 @@
         RELOAD(APP);
         APP.use(EXPRESS.static(PATH.resolve(__dirname, 'www')));
     }else{
-        APP.use('/', EXPRESS.static(PATH.join(process.env.PATH_TO_RESOURCES)))
+        APP.use(EXPRESS.static(PATH.resolve('.', 'www')))
     }
+
+    DEBUG("RESOURCE_PATH", PATH.resolve('.', 'www'));
     
     APP.get('/', (request, response) => {
         response.sendFile('index.html');
