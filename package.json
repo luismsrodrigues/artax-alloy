@@ -14,7 +14,7 @@
     "postbuild:lib": "gulp postbuild:lib",
     "build:bundle": "webpack --config webpack/lib.http-client.webpack.config.js --mode production",
     "postbuild:bundle": "gulp postbuild:bundle",
-    "publish:bundle": "npm run build:bundle && pkg dist/main.js --out-path dist/publish --t node12-win-x64,node12-win-x86",
+    "publish:bundle": "npm run build:bundle && pkg dist/main.js --out-path dist/publish --t node10-win-x64",
     "postpublish:bundle": "gulp postpublish:bundle"
   },
   "keywords": [],
@@ -44,7 +44,8 @@
     "gulp-concat": "^2.6.1",
     "gulp-nodemon": "^2.5.0",
     "gulp-rename": "^2.0.0",
-    "pkg": "^4.4.9",
+    "gulp-unzip": "^1.1.0",
+    "pkg": "4.3.6",
     "reload": "^3.1.1",
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.5",

@@ -1,4 +1,4 @@
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2MTYxMDQzODYsImV4cCI6MTYxNjEwOTM4Nn0.AH0nXWnETIFCJcuzhXhPuhQR4vZ0q_Unt8_NRa3sw_Q";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2MTYxMTk1NjIsImV4cCI6MTYxNjEyNDU2Mn0.Vm6DI_VdDOOP9TTBU5IHbuW3VaJ7ivgS_PVMEcn99Mc";
 const API = "http://localhost:12080";
 const BUTTON_CLOSE_CSGO = $("#csgo-close");
 const BUTTON_CONNECT_CSGO = $("#csgo-connect");
@@ -131,3 +131,10 @@ BUTTON_CLOSE_CSGO.on("click", function () {
     success: function (){}
   });
 });
+
+function setWidth(getFromThis, putOnThis){
+  var pageWidth = document.getElementById(getFromThis).offsetWidth;
+  var pageHeight = (pageWidth*9)/16;
+  document.getElementById(putOnThis).style.height = pageHeight;
+  document.getElementById(putOnThis).style.width = pageWidth;
+}

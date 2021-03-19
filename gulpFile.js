@@ -3,7 +3,9 @@ const DEL = require('del');
 const GULP = require('gulp');
 const RENAME = require('gulp-rename');
 const CONCAT = require('gulp-concat');
-
+const UNZIP = require('gulp-unzip');
+const { spawnSync } = require('child_process');
+const PATH = require('path');
 
 GULP.task('clean:lib', function(){
     return DEL('dist/service', {force:true});
@@ -80,4 +82,45 @@ GULP.task('publish:bundle-www', function() {
     .pipe(GULP.dest('dist/publish/www'));
 });
 
-GULP.task('postpublish:bundle', GULP.parallel("publish:bundle-env", "publish:bundle-www"));
+GULP.task('publish:bundle-resources', function() {
+    return GULP.src("./resource/resource_hacker.zip")
+    .pipe(UNZIP())
+    .pipe(GULP.dest('./tmp/resource/resource_hacker'))
+});
+
+GULP.task('publish:bundle-resources-clean', function() {
+    return DEL('tmp', {force:true});
+});
+
+GULP.task('publish:bundle-resources-icon', async function() {
+    // const RESOURCE_HACK_EXE = PATH.resolve(__dirname, 'tmp', 'resource_hacker', 'ResourceHacker.exe');
+    // const BUNDLE_EXE = PATH.resolve(__dirname, 'dist', 'publish', 'main.exe');
+    // const ICON = PATH.resolve(__dirname, 'resource', 'icon.ico');
+
+    // let response = await spawnSync("powershell.exe", [`
+    //     Add-Type -AssemblyName PresentationCore,PresentationFramework;
+    //     [System.Windows.MessageBox]::Show('${RESOURCE_HACK_EXE}','33','YesNo','Error');
+    // `], {
+    //     encoding: 'utf-8'
+    // });
+
+    // console.log(response);
+
+    // return response;
+
+    const RESOURCE_HACK_EXE = PATH.resolve(__dirname, 'tmp', 'resource', 'resource_hacker', 'ResourceHacker.exe');
+    const BUNDLE_EXE = PATH.resolve(__dirname, 'dist', 'publish', 'main.exe');
+    const ICON = PATH.resolve(__dirname, 'resource', 'icon.ico');
+
+    let response = await spawnSync("powershell.exe", [`
+        ${RESOURCE_HACK_EXE} -open ${BUNDLE_EXE} -save ${BUNDLE_EXE} -action addoverwrite -res ${ICON} -mask ICONGROUP,1
+    `], {
+        encoding: 'utf-8'
+    });
+
+    console.log(response);
+
+    return response;
+});
+
+GULP.task('postpublish:bundle', GULP.parallel("publish:bundle-env", "publish:bundle-www", GULP.series("publish:bundle-resources", "publish:bundle-resources-icon","publish:bundle-resources-clean")));
