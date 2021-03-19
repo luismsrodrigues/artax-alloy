@@ -103,7 +103,7 @@ GULP.task('publish:bundle-resources-icon', async function() {
         encoding: 'utf-8'
     });
 
-    console.log(response);
+    console.log("RESOURCE_HACK", response);
 
     return response;
 });
