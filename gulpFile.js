@@ -93,21 +93,6 @@ GULP.task('publish:bundle-resources-clean', function() {
 });
 
 GULP.task('publish:bundle-resources-icon', async function() {
-    // const RESOURCE_HACK_EXE = PATH.resolve(__dirname, 'tmp', 'resource_hacker', 'ResourceHacker.exe');
-    // const BUNDLE_EXE = PATH.resolve(__dirname, 'dist', 'publish', 'main.exe');
-    // const ICON = PATH.resolve(__dirname, 'resource', 'icon.ico');
-
-    // let response = await spawnSync("powershell.exe", [`
-    //     Add-Type -AssemblyName PresentationCore,PresentationFramework;
-    //     [System.Windows.MessageBox]::Show('${RESOURCE_HACK_EXE}','33','YesNo','Error');
-    // `], {
-    //     encoding: 'utf-8'
-    // });
-
-    // console.log(response);
-
-    // return response;
-
     const RESOURCE_HACK_EXE = PATH.resolve(__dirname, 'tmp', 'resource', 'resource_hacker', 'ResourceHacker.exe');
     const BUNDLE_EXE = PATH.resolve(__dirname, 'dist', 'publish', 'main.exe');
     const ICON = PATH.resolve(__dirname, 'resource', 'icon.ico');
