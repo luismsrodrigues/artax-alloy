@@ -33,6 +33,7 @@ Create icon.ico inside resources.
 ### Sizes
 1. 16x16
 1. 32x32
+
 1. 48x48
 1. 64x64
 1. 128x128
