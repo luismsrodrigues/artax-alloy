@@ -42,7 +42,7 @@ module.exports = function(OBS_INTEGRATION, GLOBAL_STATE, CSGO_INTEGRATION){
 
             await OBS_INTEGRATION.SetNewPreviewScene(sceneName);
 
-            response.json(OBS_INTEGRATION.GetState());
+            response.json({screenShoot: await OBS_INTEGRATION.GetPreviewScene()});
         } catch (error) {
             response.status(500).json({errorMessage: error});
         }

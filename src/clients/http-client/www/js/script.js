@@ -160,7 +160,7 @@ $( document ).ready(async function() {
       .SetType(ALERT_TYPES.Success)
       .SetMessage("Connected to service.")
       .Show()
-      .TimeOut(4000);
+      .TimeOut(2000);
 
     Components.Overlay.Hide();
   });
@@ -184,11 +184,32 @@ $( document ).ready(async function() {
   const BUTTON_CONNECT_CSGO = $("#csgo-connect");
   const BUTTON_STREAM_MAIN = $("#stream-main");
   const BUTTON_RELOAD_OBS = $("#reload-obs");
+  const BUTTON_PREVIEW_TO_LIVE = $("#previewTolive");
 
   const INPUT_CSGO_IP = $("#csgo-ip");
 
+  const SCENES_SELECT = $("#scenes");
+
   SOCKET.on('obsState', function(data) {
     OBS_STATE = JSON.parse(data);
+    console.log(OBS_STATE);
+
+    $("#scene_active").html(OBS_STATE.CurrentScene);
+
+    SCENES_SELECT
+      .find('option')
+      .remove();
+
+    OBS_STATE.Scenes.forEach(element => {
+      SCENES_SELECT.append($('<option>', {
+        value: element,
+        text: element
+      }));
+    });
+
+    SCENES_SELECT.selectpicker('val', OBS_STATE.PreviewScene);
+    SCENES_SELECT.selectpicker('refresh');
+    SCENES_SELECT.selectpicker('render');
 
     if(!OBS_STATE.Running || !OBS_STATE.Connected){
       BUTTON_STREAM_MAIN.html("START STREAMING");
@@ -237,13 +258,13 @@ $( document ).ready(async function() {
       BUTTON_CONNECT_CSGO.html("CONNECT").attr("disabled", false);
       BUTTON_CLOSE_CSGO.attr("disabled", true);
     }
-
-    console.log(CSGO_STATE);
   });
 
   SOCKET.on('previewScreen', function(data) {
     $("#previewLive").attr("src", data[0].img);
   });
+
+  $('select').selectpicker();
 
   function startPreload($this) {
     var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> ' +$this.html();
@@ -332,5 +353,30 @@ $( document ).ready(async function() {
         success: function (){}
       });
     }
+  });
+
+  BUTTON_PREVIEW_TO_LIVE.on("click", function () {
+    $.ajax({
+      type: "GET",
+      url: `${CONFIG.API.Address}/obs/stream/scene/live/change?name=${SCENES_SELECT.val()}`,
+      headers: {
+        "Authorization": "Bearer " + CONFIG.API.Token
+      },
+      success: function (){}
+    });
+  });
+
+  SCENES_SELECT.on('change', function(){
+    $.ajax({
+      type: "GET",
+      url: `${CONFIG.API.Address}/obs/stream/scene/preview/change?name=${this.value}`,
+      headers: {
+        "Authorization": "Bearer " + CONFIG.API.Token
+      },
+      success: function (data){
+        console.log(data);
+        $("#previewScene").attr("src", data.screenShoot.img);
+      }
+    });
   });
 });

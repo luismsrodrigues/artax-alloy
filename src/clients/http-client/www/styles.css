@@ -30,10 +30,6 @@ body, html{
     margin-right: 30px;
 }
 
-.stream {
-    height: auto;
-}
-
 #overlay {
     position: fixed; /* Sit on top of the page content */
     display: none; /* Hidden by default */
@@ -45,4 +41,4 @@ body, html{
     bottom: 0;
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
     z-index: 2001; /* Specify a stack order in case you're using a different order for other elements */
-  }
+}

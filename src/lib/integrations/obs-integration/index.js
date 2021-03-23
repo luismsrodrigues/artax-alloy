@@ -154,6 +154,10 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
         }
     }
 
+    async function GetPreviewScene() {
+        return  await sendCommand('TakeSourceScreenshot', { sourceName: State.Get().PreviewScene, embedPictureFormat: 'png', width: 960, height: 540 });
+    }
+
     async function screenShotActionStart() {
         if(CONFIGURATION.Modules.PreviewStream.Active){
             DEBUG("STARTED SCREEN SHOT ACTION");
@@ -230,6 +234,7 @@ module.exports = (CONFIGURATION, UTILS, GLOBAL_STATE) => {
         UpdateScenes: updateScenes,
         SetNewPreviewScene: setNewPreviewScene,
         SetNewLiveScene: setNewLiveScene,
+        GetPreviewScene,
 
         ValidatePath,
         CheckState: async function(){
