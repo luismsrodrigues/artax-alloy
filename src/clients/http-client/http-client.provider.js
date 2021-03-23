@@ -1,6 +1,7 @@
 (async function () {
     const CONFIGURATION = require('./configuration')();
     const DEBUG = require('debug')('HTTP_CLIENT');
+    const AXIOS = require('axios').default;
     DEBUG("STARTING");
 
     const EXPRESS = require('express');
@@ -17,11 +18,25 @@
     }
 
     DEBUG("RESOURCE_PATH", PATH.resolve('.', 'www'));
-    
+
     APP.get('/', (request, response) => {
         response.sendFile('index.html');
     });
+
+    APP.get('/service/config', async (request, response) => {
+        response.json({path: CONFIGURATION.Api.Path});
+    });
     
+    APP.get('/service/login', async (request, response) => {
+        AXIOS.post(`${CONFIGURATION.Api.Path}/login`, {
+            user: 'admin',
+            password: 'IVFBWjJ3c3g='
+        }).then((res) => {
+            console.log(res.data);
+            response.json(res.data);
+        });
+    });
+
     HTTP.listen(CONFIGURATION.Client.Port, () => {
         DEBUG("http://localhost:" + CONFIGURATION.Client.Port);
     });

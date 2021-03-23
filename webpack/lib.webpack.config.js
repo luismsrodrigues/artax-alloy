@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const npm_package = require('../package.json')
 
 module.exports = {
   	entry: ['babel-polyfill', './src/lib/index.js'],
@@ -9,7 +10,7 @@ module.exports = {
 		path: path.resolve(__dirname, '..', 'dist', 'service'),
 		filename: '[name].js',
 		publicPath: '/dist/'
-	},
+	},  
 	module: {
 		rules: [
 			{

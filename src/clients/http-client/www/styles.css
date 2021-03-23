@@ -1,105 +1,35 @@
-body,html{
-    width: 100%;
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body, html{
     height: 100%;
-}
-
-.remote{
-    max-width: 650px;
-}
-
-.box{
-    background-color: #F5F3F4;
-    border-radius: 7px;
-}
-
-.navbar{
-    background-color: #FFFFFF;
-    margin-left: -15px;
-    margin-right: -15px;
-    border-radius: 7px;
+    width: 100%;
 }
 
 .agency-logo {
-    height: 100px !important;
+    height: 100px ;
     width: auto !important;
     margin-right: 30px;
 }
 
-.stream-box {
-    background-color: #FFFFFF;
-    margin-top: 20px;
-    margin-bottom: 150px;
-    border-radius: 7px;
-}
-
-button {
-    height: 50px;
-}
-
-.screen {
-    --bs-aspect-ratio: 56%;
-    width: 100%;
-    height: 56%;
-}
-
-
-.modal-dialog {
-    min-height: calc(50vh);
-    max-width: 650px;
-    margin-top: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: auto;
-}
-@media(max-width: 768px) {
-  .modal-dialog {
-    min-height: calc(50vh);
-    margin-top: 50vh;
-  }
-}
-
-
-@media only screen and (max-width: 576px) {
-    .agency-logo{
-        height: 60px !important;
-        margin-right: 20px !important;
-    }
-    h1 {
-        font-size: 26px !important;
-    }
-    
-    button {
-        font-size: 14px !important;
-    }
-}
-
-@media only screen and (max-width: 376px) {
-    .agency-logo{
-        height: 40px !important;
-        margin-right: 10px !important;
-    }
-    
-    h1 {
-        font-size: 22px !important;
-    }
-    
-    button {
-        font-size: 12px !important;
-    }
-}
-
-.main{
-    display: flex;
-    position: inherit;
-    align-items: center;
-    justify-content: center;
-}
-
-img {
-    display: block;
-    max-width:558px;
-    max-height:314px;
-    width: auto;
+.stream {
     height: auto;
 }
