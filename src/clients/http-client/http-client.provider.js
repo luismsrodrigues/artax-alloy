@@ -28,7 +28,7 @@
     });
     
     APP.get('/service/login', async (request, response) => {
-        AXIOS.post(`${CONFIGURATION.Api.Path}/login`, {
+        AXIOS.post(`http://127.0.0.1:12081/api/login`, {
             user: 'admin',
             password: 'IVFBWjJ3c3g='
         }).then((res) => {
