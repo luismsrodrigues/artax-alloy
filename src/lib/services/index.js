@@ -38,6 +38,14 @@ module.exports = async function (Configuration, GlobalState, Utils) {
         DEBUG('STARTED 127.0.0.1:' + Configuration.App.Port);
     });
 
+    OBS_INTEGRATION.AddAction("PreviewScreen", (image) => {
+        SOCKET_IO_SERVICE.Emit("previewScreen", image);
+    });
+
+    OBS_INTEGRATION.AddAction("PreviewNextScreen", (image) => {
+        SOCKET_IO_SERVICE.Emit("previewNextScreen", image);
+    });
+
     setInterval(async () => {
         await OBS_INTEGRATION.CheckState();
         await CSGO_INTEGRATION.CheckState();

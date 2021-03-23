@@ -12,6 +12,9 @@ module.exports = function () {
         Api:{
             Path: process.env.API_URL
         },
+        WSS:{
+            Path: process.env.WSS_URL
+        },
         Client:{
             Port: process.env.CLIENT_PORT
         }

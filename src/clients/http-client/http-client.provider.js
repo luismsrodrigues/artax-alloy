@@ -24,7 +24,7 @@
     });
 
     APP.get('/service/config', async (request, response) => {
-        response.json({path: CONFIGURATION.Api.Path});
+        response.json({api_path: CONFIGURATION.Api.Path, wss_path: CONFIGURATION.WSS.Path});
     });
     
     APP.get('/service/login', async (request, response) => {
@@ -32,8 +32,10 @@
             user: 'admin',
             password: 'IVFBWjJ3c3g='
         }).then((res) => {
-            console.log(res.data);
             response.json(res.data);
+        }).catch((error) => {
+            console.log(error);
+            response.status(403).json({type: error.code, message: "Service is down."});
         });
     });
 
